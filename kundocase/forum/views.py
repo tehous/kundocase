@@ -144,4 +144,5 @@ def post_post(request, topic_id, postm_id=None,api_call=False):
         "topic": topic,
         "posts": posts,
         "post_form":post_form,
+        "postm_id":postm_id
     })
