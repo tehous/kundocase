@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+    {{ topic.content }}
+{% endblock %}
+{% block body %}
+    <a href="/">&laquo; Till startsidan</a>
+    <h1>{{ topic.content }}</h1>
+
+    {% for post in posts %}
+        <p>{{ post.content }}</p>
+        <p>By: <strong>{{ post.user_name }}</strong>, {{ post.user_email }}, <i>{{post.datetime}}</i></p>
+        {% if post.original_post is not True %}
+        	<a href="{% url "update_answer" topic_id=topic.id postm_id=post.id %}">edit answer</a>
+		{% endif %}
+
+		{% if forloop.first %}
+	    	<h2>Answers</h2>
+		{% endif %}
+    {% endfor %}
+    {%block edit_answer %}
+	    <h2>Create or Edit Answer:</h2>
+	    {% if postm_id %}
+	    	<form id="modelsForm" action={% url "update_answer" topic_id=topic.id postm_id=postm_id %} method="post" role="form">
+	    {% else %}
+	    	<form id="modelsForm" action={% url "topic" topic_id=topic.id %} method="post" role="form">
+	    {% endif %}
+	    		{% csrf_token %}
+		    	{% include "forum/simple_form.html" with form=post_form%}
+				{% if postm_id %}
+					<input id="submitButton" type="submit" value="Update Answer"/>
+				{% else %}
+					<input id="submitButton" type="submit" value="Answer"/>
+				{% endif %}
+	    	</form>
+	{% endblock edit_answer %}
+    
+{% endblock %}

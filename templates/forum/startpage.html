@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+    Startpage
+{% endblock %}
+{% block body %}
+    <h1>Current questions:</h1>
+    <ul>
+        {% for topic in topics %}
+            <li><a href="{% url "topic" topic_id=topic.id %}">{{ topic.content }}</a></li>
+        {% endfor %}
+    </ul>
+    {%block new_question %}
+	    <h2>Create new_question:</h2>
+	    <form id="modelsForm" action={% url "startpage" %} method="post" role="form">
+	    	{% csrf_token %}
+		    {% include "forum/simple_form.html" with form=topic_form%}
+		    {% include "forum/simple_form.html" with form=post_form%}
+			<input id="submitButton" type="submit" value="Create Question"/>
+	    </form>
+	{% endblock new_question %}
+{% endblock body%}

@@ -1,0 +1,13 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <title>Forum</title>
+    <link rel="stylesheet" href="{% static "style.css" %}">
+</head>
+<body>
+	{% block body %}{% endblock %}
+    <script src="{% static "script.js" %}"></script>
+</body>
+</html>
